@@ -7,7 +7,8 @@ import {
   EDIT_CAR_PENDING,
   EDIT_CAR_SUCCESS,
   REMOVE_CAR_PENDING,
-  REMOVE_CAR_SUCCESS
+  REMOVE_CAR_SUCCESS,
+    GET_SINGLE_CAR_PENDING
 
 } from '../actions/cars'
 
@@ -39,26 +40,34 @@ import thunkMiddleware from 'redux-thunk'
 //   }
 // }
 
+const initialState = {
+    payload: '',
+    loading: true,
+};
 
 
-function Reducer (state = [], action) {
+// function Reducer (state = [], action) {
+//  switch (action.type) {
+//   case GET_CARS_SUCCESS:
+//    return action.payload
+//   default:
+//    return state
+//   }
+// }
+
+
+
+function Reducer (state = initialState, action) {
  switch (action.type) {
-  case GET_CARS_SUCCESS:
-   return action.payload
-  default:
-   return state
-  }
-}
-
-
-
-function Reducer (state = [], action) {
- switch (action.type) {
+     case GET_SINGLE_CAR_PENDING:
+         return { loading: true };
   case GET_SINGLE_CAR:
-      console.log("TEST", action)
-   return {car: action.payload} 
+   return {
+       car: action.payload,
+       loading: false
+   }
   default:
    return state
   }
 }
-export default createStore(Reducer, applyMiddleware(thunkMiddleware))
+export default Reducer;
